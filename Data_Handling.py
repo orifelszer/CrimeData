@@ -14,7 +14,7 @@ from sklearn.preprocessing import StandardScaler
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import glob
 
 def Preprocessing(datasets, train_mappings=None, scaler=None, fit_scaler=False):
