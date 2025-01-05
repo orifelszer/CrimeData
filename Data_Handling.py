@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 # coding: utf-8
 
@@ -10,6 +11,11 @@
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+import glob
 
 def Preprocessing(datasets, train_mappings=None, scaler=None, fit_scaler=False):
 
