@@ -1,14 +1,14 @@
-# Importing necessary libraries for data preprocessing
+#Importing necessary libraries for data preprocessing
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import StandardScaler, MinMaxScaler, LabelEncoder
+from sklearn.preprocessing import RobustScaler, LabelEncoder
 
 def Preprocessing(datasets, train_mappings=None, scaler=None, fit_scaler=False):
     """
-    Function for preprocessing datasets including missing value handling, 
+    Function for preprocessing datasets including missing value handling,
     feature engineering, and label encoding.
     """
-    
+
     # Generate mappings for 'StatisticArea' and 'Yeshuv' if not provided
     if train_mappings is None:
         train_mappings = {
@@ -49,13 +49,13 @@ def Preprocessing(datasets, train_mappings=None, scaler=None, fit_scaler=False):
 
     # Remove additional redundant columns related to police districts and areas
     columns_to_remove_redundant = [
-        'PoliceMerhavKod', 'PoliceDistrictKod', 'PoliceStationKod', 
-        'PoliceMerhav', 'PoliceDistrict', 'StatisticArea'
-    ]
+        'PoliceMerhavKod', 'PoliceDistrictKod', 'PoliceStationKod',
+        'PoliceMerhav', 'PoliceDistrict'
+        ]
     datasets = datasets.drop(columns=columns_to_remove_redundant, errors='ignore')
 
     # Convert categorical columns to numeric using Label Encoding
-    categorical_columns = ['Yeshuv', 'PoliceStation']
+    categorical_columns = ['Yeshuv', 'PoliceStation', 'StatisticArea']
     label_encoders = {}
     for col in categorical_columns:
         le = LabelEncoder()
@@ -76,15 +76,26 @@ def Preprocessing(datasets, train_mappings=None, scaler=None, fit_scaler=False):
 
     # Normalize numeric columns using MinMaxScaler
     numeric_columns = ['YeshuvCrimeRate', 'CrimeTrend']
+    # יצירת סקיילר במידת הצורך
     if scaler is None:
-        scaler = MinMaxScaler()
+        scaler = RobustScaler()
+    # אימון הסקיילר על נתוני האימון בלבד
     if fit_scaler:
         datasets[numeric_columns] = scaler.fit_transform(datasets[numeric_columns])
     else:
+        # החלת הסקיילר על נתוני הבדיקה
         datasets[numeric_columns] = scaler.transform(datasets[numeric_columns])
+
+    # מניעת ערכים שליליים בעזרת הוספת קבוע קטן
+    for col in numeric_columns:
+        min_value = datasets[col].min()
+        if min_value < 0:
+            datasets[col] = datasets[col] + abs(min_value) + 1e-5
 
     # Remove the ID column and the original quarter column
     datasets = datasets.drop(columns=['FictiveIDNumber', 'Quarter'], errors='ignore')
 
     # Return the preprocessed dataset along with the mappings and scaler for later use
     return datasets, train_mappings, scaler, label_encoders
+
+
