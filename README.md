@@ -11,7 +11,13 @@ The dataset includes:
   - **Time:** Year, Quarter
   - **Crime Details:** Statistic Group, Statistic Type
 
-The dataset provides detailed temporal and spatial data on crimes in Israel.
+The dataset provides detailed temporal and spatial data on crimes in Israel. You can find them in our repository as:
+- `crimes2019.zip`
+- `crimes2020.zip`
+- `crimes2021.zip`
+- `crimes2022.zip`
+- `crimes2023.zip`
+- `crimes2024.zip`
 
 ## **Objectives**
 - **Build an end-to-end classification pipeline:**
