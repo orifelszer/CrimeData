@@ -1,1 +1,16 @@
-pip freeze > requirements.txt
+bidi.algorithm
+imblearn
+lightgbm
+matplotlib
+prepare_data
+scikit-learn
+tensorflow
+xgboost
+glob2
+missingno
+numpy
+pandas
+requests
+seaborn
+warnings
+zipfile36
