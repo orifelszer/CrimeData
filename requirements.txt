@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 anyio==3.5.0
 argon2-cffi==21.3.0
 argon2-cffi-bindings==21.2.0
@@ -93,3 +94,21 @@ webencodings==0.5.1
 websocket-client==1.3.1
 Werkzeug==3.0.3
 XlsxWriter==3.2.0
+=======
+bidi.algorithm
+imblearn
+lightgbm
+matplotlib
+prepare_data
+scikit-learn
+tensorflow
+xgboost
+glob2
+missingno
+numpy
+pandas
+requests
+seaborn
+warnings
+zipfile36
+>>>>>>> 1eb2fd36d54e82abd924603abdf0ab413df97b86
