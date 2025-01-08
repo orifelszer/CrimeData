@@ -39,11 +39,16 @@ The dataset provides detailed temporal and spatial data on crimes in Israel.
 
 ## **Usage**
 1. Run the notebooks in order:
-   - `prepare_data.ipynb` for data preprocessing
    - `creating_file.ipynb` for feature engineering
+   - `prepare_data.ipynb` for data preprocessing
+   - `Data_Handling.ipynb` for data preprocessing
    - `RandomForest.ipynb`, `DecisionTree.ipynb`, `LGBM.ipynb`, and `DNN.ipynb` for supervised learning
+   - `Clustering.ipynb` for Unsupervised learning
    - `Visualization.ipynb` for data analysis and result visualization
-2. Explore the outputs in the `results/` folder.
+   - `Models_Results.ipynb` for the supervised and ansupervised results
+   - 
+3. Since our dataset containg over two millions rows, we suggest you to call from our repository the saved cleaned datasets for `X_test_supervised.zip`, `X_train_supervised.zip`, `y_test_supervised.zip` and `y_train_supervised.zip`.
+If you prefer to download yourself new versions, you can do it in the `creating_file.ipynb`
 
 ## **Contributors**
 - Oriana Felszer
