@@ -45,12 +45,14 @@ The dataset provides detailed temporal and spatial data on crimes in Israel. You
 
 ## **Usage**
 
-*For Supervised Models*
+Run the notebooks in the following order order:
+
+# *For Supervised Models*
 
 Since our dataset contains over two millions rows, we suggest you to call from our repository the saved cleaned datasets for `X_test_supervised.zip`, `X_train_supervised.zip`, `y_test_supervised.zip` and `y_train_supervised.zip`.
 If you prefer to download yourself new versions, you can do it in the `creating_file.ipynb`
 
-  Run the notebooks in the following order order:
+
    - `creating_file.ipynb` for creating `X_test_supervised.zip`, `X_train_supervised.zip`, `y_test_supervised.zip` and `y_train_supervised.zip`.
    - `Visualization.ipynb` for data visualization
    - `Prepare_data.ipynb` for data preprocessing and feature engineering
@@ -58,7 +60,7 @@ If you prefer to download yourself new versions, you can do it in the `creating_
    - `Supervised_Models.ipynb` for the supervised and ansupervised results
 
 
-*For Unsupervised Models* 
+# *For Unsupervised Models* 
    - `Prepare_data_unsupervised.ipynb` for data preprocessing
    - `Clustering.ipynb` for Unsupervised learning
 
