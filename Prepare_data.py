@@ -133,8 +133,8 @@ def Preprocessing(datasets, train_mappings=None, scaler=None, fit_scaler=False):
         label_encoders[col] = le
 
     # === Normalization of Numeric Features ===
-    numeric_columns = ['YeshuvCrimeRate', 'CrimeTrend', 'TimeIndex', 'CrimeTrend_CrimeRate', 'StationCrimeRateAvg',
-                       'PoliceStationCrimeCount', 'YeshuvHistoricalCrimeRate', 'StationsNearbyCount']
+    numeric_columns = ['YeshuvCrimeRate', 'CrimeTrend', 'CrimeTrend_CrimeRate', 'StationCrimeRateAvg',
+                       'YeshuvHistoricalCrimeRate', 'StationsNearbyCount']
 
     if scaler is None:
         scaler = RobustScaler()
