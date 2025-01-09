@@ -1,7 +1,19 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# <a href="https://colab.research.google.com/github/orifelszer/CrimeData/blob/eden-branch/Prepare_data.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
+# In[ ]:
+
+
 #Importing necessary libraries for data preprocessing
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import RobustScaler, LabelEncoder
+
+
+# In[ ]:
+
 
 def Preprocessing(datasets, train_mappings=None, scaler=None, fit_scaler=False):
     """
@@ -55,12 +67,15 @@ def Preprocessing(datasets, train_mappings=None, scaler=None, fit_scaler=False):
         modes = yeshuv_group.mode()
         if len(modes) > 1:
             return np.random.choice(modes)
-        else:
+        elif len(modes) == 1:  # תיקון תחביר כאן
             return modes.iloc[0]
+        else:
+            return np.nan
 
     # Apply probabilistic filling for missing 'StatisticArea'
     datasets['StatisticArea'] = datasets.groupby('Yeshuv')['StatisticArea'].transform(
         lambda x: x.fillna(fill_statistic_area_random(x)))
+    datasets = datasets.dropna(subset=['StatisticArea'])
 
     # === Feature Engineering and Transformation ===
     # Creating Cyclical Time Features for the Quarter (sin/cos transformation)
