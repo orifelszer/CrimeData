@@ -1,7 +1,19 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# <a href="https://colab.research.google.com/github/orifelszer/CrimeData/blob/eden-branch/Prepare_data.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
+# In[ ]:
+
+
 #Importing necessary libraries for data preprocessing
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import RobustScaler, LabelEncoder
+from sklearn.preprocessing import RobustScaler, LabelEncoder, OneHotEncoder
+
+
+# In[ ]:
+
 
 def Preprocessing(datasets, train_mappings=None, scaler=None, fit_scaler=False):
     """
@@ -55,12 +67,15 @@ def Preprocessing(datasets, train_mappings=None, scaler=None, fit_scaler=False):
         modes = yeshuv_group.mode()
         if len(modes) > 1:
             return np.random.choice(modes)
-        else:
+        elif len(modes) == 1:  # תיקון תחביר כאן
             return modes.iloc[0]
+        else:
+            return np.nan
 
     # Apply probabilistic filling for missing 'StatisticArea'
     datasets['StatisticArea'] = datasets.groupby('Yeshuv')['StatisticArea'].transform(
         lambda x: x.fillna(fill_statistic_area_random(x)))
+    datasets = datasets.dropna(subset=['StatisticArea'])
 
     # === Feature Engineering and Transformation ===
     # Creating Cyclical Time Features for the Quarter (sin/cos transformation)
@@ -72,10 +87,6 @@ def Preprocessing(datasets, train_mappings=None, scaler=None, fit_scaler=False):
     datasets['YeshuvCrimeRate'] = datasets.groupby('Yeshuv')['Yeshuv'].transform('count')
     datasets['CrimeTrend'] = datasets.groupby('Year')['Year'].transform('count')
 
-    # Adding a combined time index and a seasonal feature (Spring/Summer = 0, Autumn/Winter = 1)
-    datasets['TimeIndex'] = datasets['Year'] * 4 + datasets['Quarter_numeric']
-    datasets['Season'] = datasets['Quarter_numeric'].apply(lambda q: (q % 4) // 2)
-
     # Adding interaction features: CrimeTrend multiplied by YeshuvCrimeRate
     datasets['CrimeTrend_CrimeRate'] = datasets['CrimeTrend'] * datasets['YeshuvCrimeRate']
 
@@ -83,16 +94,13 @@ def Preprocessing(datasets, train_mappings=None, scaler=None, fit_scaler=False):
     station_crime_rate = datasets.groupby('PoliceStation')['YeshuvCrimeRate'].transform('mean')
     datasets['StationCrimeRateAvg'] = station_crime_rate
 
-    # Calculating number of crimes reported at each police station
-    datasets['PoliceStationCrimeCount'] = datasets.groupby('PoliceStation')['PoliceStation'].transform('count')
-
     # Calculating historical crime rate per Yeshuv
     datasets['YeshuvHistoricalCrimeRate'] = datasets.groupby('Yeshuv')['YeshuvCrimeRate'].transform('mean')
 
-    # Calculating the number of nearby police stations within the same district
+    # === Urban vs. Rural Classification ===
+     # Calculating the number of nearby police stations within the same district
     datasets['StationsNearbyCount'] = datasets.groupby('PoliceDistrict')['PoliceStation'].transform('nunique')
 
-    # === Urban vs. Rural Classification ===
     # Defining a list of cities in Hebrew for classification purposes
     hebrew_cities = [
         "אום אל-פחם", "אופקים", "אור יהודה", "אור עקיבא", "אילת", "אלעד", "אריאל",
@@ -125,8 +133,8 @@ def Preprocessing(datasets, train_mappings=None, scaler=None, fit_scaler=False):
         label_encoders[col] = le
 
     # === Normalization of Numeric Features ===
-    numeric_columns = ['YeshuvCrimeRate', 'CrimeTrend', 'TimeIndex', 'CrimeTrend_CrimeRate', 'StationCrimeRateAvg',
-                       'PoliceStationCrimeCount', 'YeshuvHistoricalCrimeRate', 'StationsNearbyCount']
+    numeric_columns = ['YeshuvCrimeRate', 'CrimeTrend', 'CrimeTrend_CrimeRate', 'StationCrimeRateAvg',
+                       'YeshuvHistoricalCrimeRate', 'StationsNearbyCount']
 
     if scaler is None:
         scaler = RobustScaler()
