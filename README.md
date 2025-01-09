@@ -59,7 +59,6 @@ If you prefer to download yourself new versions, you can do it in the `creating_
 
 
 *For Unsupervised Models* 
-
     - `Prepare_data_unsupervised.ipynb` for data preprocessing
     - `Clustering.ipynb` for Unsupervised learning
 
