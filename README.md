@@ -25,7 +25,7 @@ The dataset provides detailed temporal and spatial data on crimes in Israel. You
   - Engineer new features, including crime rates and trends
   - Apply supervised models such as Random Forest, LightGBM, and Deep Neural Networks
 - **Perform unsupervised analysis:**
-  - Cluster crime hotspots using K-Means and DBSCAN
+  - Cluster crime hotspots using 
 - **Visualize results** for interpretability and insights.
 
 ## **Methodology**
