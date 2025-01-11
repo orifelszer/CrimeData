@@ -23,9 +23,9 @@ def Preprocessing(datasets):
     }
 
     # Filling missing values based on mappings
-    datasets['StatisticArea'] = datasets['StatisticArea'].fillna(
+    datasets.loc[:, 'StatisticArea'] = datasets['StatisticArea'].fillna(
         datasets['StatisticAreaKod'].map(train_mappings['StatisticArea']))
-    datasets['Yeshuv'] = datasets['Yeshuv'].fillna(
+    datasets.loc[:, 'Yeshuv'] = datasets['Yeshuv'].fillna(
         datasets['YeshuvKod'].map(train_mappings['Yeshuv']))
 
     # === Data Cleaning and Column Removal ===
@@ -57,8 +57,8 @@ def Preprocessing(datasets):
             return np.nan
 
     # Applying the probabilistic filling method for missing 'StatisticArea' values
-    datasets['StatisticArea'] = datasets.groupby('Yeshuv')['StatisticArea'].transform(
-        lambda x: x.fillna(fill_statistic_area_random(x)))
+    datasets.loc[:, 'StatisticArea'] = datasets.groupby('Yeshuv')['StatisticArea'].transform(
+        lambda x: x.fillna(fill_statistic_area_random(x)).infer_objects(copy=False))
     # Dropping rows where 'StatisticArea' could not be filled
     datasets = datasets.dropna(subset=['StatisticArea'])
 
