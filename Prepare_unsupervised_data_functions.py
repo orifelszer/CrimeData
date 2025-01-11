@@ -1,7 +1,19 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# <a href="https://colab.research.google.com/github/orifelszer/CrimeData/blob/eden-branch/Prepare_unsupervised_data_functions.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
+# In[ ]:
+
+
 # === Importing Required Libraries ===
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import RobustScaler, LabelEncoder, OneHotEncoder
+
+
+# In[ ]:
+
 
 def Preprocessing(datasets):
     """
@@ -42,7 +54,7 @@ def Preprocessing(datasets):
 
     # Removing additional redundant columns
     columns_to_remove_redundant = [
-        'PoliceMerhavKod', 'PoliceDistrictKod', 'PoliceStationKod', 'StatisticTypeKod']
+        'PoliceMerhavKod', 'PoliceDistrictKod', 'PoliceStationKod', 'StatisticTypeKod', 'StatisticGroupKod']
     datasets = datasets.drop(columns=columns_to_remove_redundant, errors='ignore')
 
     # === Handling Missing Values for 'StatisticArea' ===
@@ -110,7 +122,7 @@ def Preprocessing(datasets):
     datasets = pd.get_dummies(datasets, columns=['CityOrMoshav'], drop_first=True)
 
     # Applying Label Encoding to categorical columns
-    categorical_columns = ['Yeshuv', 'PoliceStation', 'StatisticArea', 'PoliceMerhav', 'PoliceDistrict', 'StatisticType', 'FictiveIDNumber']
+    categorical_columns = ['Yeshuv', 'PoliceStation', 'StatisticArea', 'PoliceMerhav', 'PoliceDistrict', 'StatisticType', 'FictiveIDNumber', 'StatisticGroup']
     label_encoders = {}
     for col in categorical_columns:
         le = LabelEncoder()
@@ -149,3 +161,4 @@ def Preprocessing(datasets):
     datasets = optimize_data_types(datasets)
 
     return datasets
+
