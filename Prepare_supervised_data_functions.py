@@ -233,12 +233,12 @@ from sklearn.pipeline import Pipeline
 
 # === Creating the full preprocessing pipeline ===
 pipeline = Pipeline([
-    ('data_cleaning', DataCleaningAndDeduplication()),
     ('fill_missing', FillMissingValues()),
     ('feature_engineering', FeatureEngineering()),
     ('urban_rural_classification', UrbanRuralClassification()),
     ('encoding_scaling', EncodingAndScaling()),
-    ('memory_reduction', MemoryReduction())
+    ('memory_reduction', MemoryReduction()),
+    ('data_cleaning', DataCleaningAndDeduplication())
 ])
 
 # # === Importing Required Libraries ===
