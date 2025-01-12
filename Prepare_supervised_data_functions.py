@@ -6,7 +6,6 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 
-
 def create_feature_engineering(df):
     """ Function to create additional features based on the existing data. """
     # Creating Cyclical Time Features for the Quarter (sin/cos transformation)
