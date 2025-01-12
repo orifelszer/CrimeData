@@ -7,6 +7,8 @@ import numpy as np
 
 # === Mapping and Imputation for Missing Values ===
 class FillMissingValues(BaseEstimator, TransformerMixin):
+    def __init__(self):
+        self.train_mappings = None
 
     def fit(self, X, y=None):
         # Creating mappings for 'StatisticArea' and 'Yeshuv' to fill missing values
@@ -231,12 +233,12 @@ from sklearn.pipeline import Pipeline
 
 # === Creating the full preprocessing pipeline ===
 pipeline = Pipeline([
-    ('data_cleaning', DataCleaningAndDeduplication()),
     ('fill_missing', FillMissingValues()),
     ('feature_engineering', FeatureEngineering()),
     ('urban_rural_classification', UrbanRuralClassification()),
     ('encoding_scaling', EncodingAndScaling()),
-    ('memory_reduction', MemoryReduction())
+    ('memory_reduction', MemoryReduction()),
+    ('data_cleaning', DataCleaningAndDeduplication())
 ])
 
 # # === Importing Required Libraries ===
