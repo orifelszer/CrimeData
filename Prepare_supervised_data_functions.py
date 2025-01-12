@@ -161,9 +161,10 @@ class EncodingAndScaling(BaseEstimator, TransformerMixin):
                                 'StationCrimeRateAvg', 'YeshuvHistoricalCrimeRate', 'StationsNearbyCount']
 
         for col in self.categorical_columns:
-            le = LabelEncoder()
-            le.fit(X[col])
-            self.label_encoders[col] = le
+          if col in X.columns:
+                le = LabelEncoder()
+                le.fit(X[col].astype(str))
+                self.label_encoders[col] = le
 
         # Fitting the scaler only if required
         if self.fit_scaler:
@@ -179,16 +180,17 @@ class EncodingAndScaling(BaseEstimator, TransformerMixin):
 
         # === Applying Label Encoding to categorical columns ===
         for col, le in self.label_encoders.items():
-            if not set(X_transformed[col]).issubset(set(le.classes_)):
-                raise ValueError(f"ValueError: {col} contains previously unseen labels!")
-            X_transformed[col] = le.transform(X_transformed[col])
+          if col in X_transformed.columns:
+                X_transformed[col] = X_transformed[col].apply(
+                    lambda x: le.transform([str(x)])[0] if str(x) in le.classes_ else -1)
 
         # === Normalization of Numeric Features ===
+        numeric_cols_in_data = [col for col in self.numeric_columns if col in X_transformed.columns]
         if self.fit_scaler:
-            X_transformed[self.numeric_columns] = self.scaler.transform(X_transformed[self.numeric_columns])
+            X_transformed[numeric_cols_in_data] = self.scaler.transform(X_transformed[numeric_cols_in_data])
 
         # Preventing negative values by adding a small positive constant
-        for col in self.numeric_columns:
+        for col in numeric_cols_in_data:
             min_value = X_transformed[col].min()
             if min_value < 0:
                 X_transformed[col] = X_transformed[col] + abs(min_value) + 1e-5
@@ -231,16 +233,16 @@ class DataCleaningAndDeduplication(BaseEstimator, TransformerMixin):
 
         return X_cleaned
 
-from sklearn.pipeline import Pipeline
-
 # === Creating the full preprocessing pipeline ===
 pipeline = Pipeline([
     ('fill_missing', FillMissingValues()),
+    ('data_cleaning', DataCleaning()),
+    ('impute_stat_area', ImputeStatisticArea()),
     ('feature_engineering', FeatureEngineering()),
     ('urban_rural_classification', UrbanRuralClassification()),
     ('encoding_scaling', EncodingAndScaling()),
     ('memory_reduction', MemoryReduction()),
-    ('data_cleaning', DataCleaningAndDeduplication())
+    ('data_cleaning_dedup', DataCleaningAndDeduplication())
 ])
 
 # # === Importing Required Libraries ===
