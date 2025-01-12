@@ -7,6 +7,8 @@ import numpy as np
 
 # === Mapping and Imputation for Missing Values ===
 class FillMissingValues(BaseEstimator, TransformerMixin):
+    def __init__(self):
+        self.train_mappings = None
 
     def fit(self, X, y=None):
         # Creating mappings for 'StatisticArea' and 'Yeshuv' to fill missing values
