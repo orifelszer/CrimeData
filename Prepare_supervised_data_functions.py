@@ -1,5 +1,5 @@
-from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.preprocessing import LabelEncoder, RobustScaler
+from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 import pandas as pd
@@ -179,6 +179,8 @@ class EncodingAndScaling(BaseEstimator, TransformerMixin):
 
         # === Applying Label Encoding to categorical columns ===
         for col, le in self.label_encoders.items():
+            if not set(X_transformed[col]).issubset(set(le.classes_)):
+                raise ValueError(f"ValueError: {col} contains previously unseen labels!")
             X_transformed[col] = le.transform(X_transformed[col])
 
         # === Normalization of Numeric Features ===
