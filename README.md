@@ -58,10 +58,12 @@ If you prefer to download yourself new versions, you can do it in the `creating_
    - `Visualization.ipynb` for data visualization and supervised models results
 
 
+
+## *For Unsupervised Models* 
+
 For the same reason, but for our unsupervised models, we suggest you to call `Clean_data_unsupervised_part1.zip` and `Clean_data_unsupervised_part2.zip`. 
 You can created your datasets in the `Creating_unsupervised_data.ipynb`
 
-## *For Unsupervised Models* 
    - `Creating_unsupervised_data.ipynb` for combining the datasets
    - `Prepare_unsupervised_data_functions.ipynb` for data preprocessing and feature engineering
    - `Clustering.ipynb` and `Anomaly_detectuon.ipynb` for Unsupervised learning models 
