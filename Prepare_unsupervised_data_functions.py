@@ -69,6 +69,7 @@ def Preprocessing(datasets):
             return np.nan
 
     # Applying the probabilistic filling method for missing 'StatisticArea' values
+    pd.set_option('future.no_silent_downcasting', True)
     datasets.loc[:, 'StatisticArea'] = datasets.groupby('Yeshuv')['StatisticArea'].transform(
         lambda x: x.fillna(fill_statistic_area_random(x)).infer_objects(copy=False))
     # Dropping rows where 'StatisticArea' could not be filled
