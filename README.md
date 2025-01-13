@@ -100,7 +100,7 @@ You can created your datasets in the `Creating_unsupervised_data.ipynb`
    - `Prepare_unsupervised_data_functions.ipynb` for data preprocessing and feature engineering.
    - `Clustering.ipynb` and `Anomaly_detection.ipynb` for Unsupervised learning models.
 
-
+**Note:** Due to the large size of the datasets, it is recommended to use Google Colab for running the notebooks. Google Colab provides a free cloud-based environment with access to GPU and TPU, which can significantly speed up the processing and training of your models.
 
 ## **Installation Instructions**
 
