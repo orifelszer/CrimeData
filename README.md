@@ -20,28 +20,60 @@ The dataset provides detailed temporal and spatial data on crimes in Israel. You
 - `crimes2024.zip`
 
 ## **Objectives**
-- **Build an end-to-end classification pipeline:**
-  - Preprocess and clean data
+- **Analyze and classify crime data:**
+  - Preprocess and clean data to handle missing values and irrelevant features
   - Engineer new features, including crime rates and trends
   - Apply supervised models such as Random Forest, LightGBM, and Deep Neural Networks
 - **Perform unsupervised analysis:**
-  - Cluster crime hotspots using 
+  - Cluster crime hotspots using methods like K-Means and DBSCAN
+  - Perform anomaly detection using Random Forest
 - **Visualize results** for interpretability and insights.
 
 ## **Methodology**
-- **Data Preprocessing:**
-  - Handled missing values and irrelevant features
-  - Encoded categorical variables and normalized features
-- **Feature Engineering:**
-  - Derived features such as quarterly crime rates and trends
-- **Supervised Learning:**
-  - Random Forest, Decision Trees, LightGBM, and Deep Neural Networks
-  - **Evaluation metrics:** Accuracy, Precision, Recall, F1-score
-- **Unsupervised Learning:**
-  - Clustering methods (K-Means, DBSCAN) to identify crime patterns
-  - Anomaly Detection using Isolation Forest
-- **Visualization:**
-  - Confusion matrices, trend plots, and spatial distributions for better interpretability
+
+### **Data Preprocessing**
+- **Handling Missing Values:** 
+  - Created mappings for 'StatisticArea' and 'Yeshuv' to fill missing values using their respective Kod columns.
+  - Dropped rows where 'Yeshuv' is still missing after imputation.
+  - Removed columns with excessive missing values (more than 85% missing).
+  - Removed columns that could cause data leakage or were redundant after mapping.
+  - Created a binary indicator for missing 'StatisticArea' values.
+  - Applied probabilistic filling for missing 'StatisticArea' based on the most frequent value within 'Yeshuv'.
+  
+### **Feature Engineering**
+- **Derived Features:** 
+  - Created cyclical time features for the Quarter using sine and cosine transformations.
+  - Calculated crime rates and trends based on historical data.
+  - Added interaction features, such as CrimeTrend multiplied by YeshuvCrimeRate.
+  - Calculated average crime rate per police station and historical crime rate per Yeshuv.
+  - Calculated the number of nearby police stations within the same district.
+- **Urban vs. Rural Classification:**
+  - Classified 'Yeshuv' as 'City' or 'Moshav' using a predefined list of cities in Hebrew.
+
+### **Supervised Learning**
+- **Models Used:**
+  - Random Forest
+  - Decision Trees
+  - LightGBM
+  - Deep Neural Networks
+  - XGB
+- **Evaluation Metrics:** Assessed model performance using metrics such as Accuracy, Precision, Recall, and F1-score.
+
+### **Unsupervised Learning**
+- **Clustering Methods:**
+  - Applied K-Means and DBSCAN to identify crime patterns and hotspots.
+  - Used the Elbow Method and Silhouette Score to determine the optimal number of clusters for K-Means.
+  - Visualized clusters using PCA.
+- **Anomaly Detection:**
+  - Used Isolation Forest and Random Forest for detecting anomalies in the data.
+  - Visualized anomalies using scatter plots with Seaborn.
+
+### **Visualization**
+- **Missing Data Visualization:** Used dendrograms to visualize the dissimilarity between missing data patterns across columns.
+- **Geographical Distribution:** Mapped crime data to visualize geographical patterns and hotspots.
+- **Distribution Analysis:** Created histograms and boxplots to examine the distribution and detect outliers in numerical features.
+- **Trend Analysis:** Visualized the top StatisticGroup categories per quarter to highlight key trends.
+
 
 ## **Usage**
 
@@ -68,8 +100,19 @@ You can created your datasets in the `Creating_unsupervised_data.ipynb`
    - `Prepare_unsupervised_data_functions.ipynb` for data preprocessing and feature engineering
    - `Clustering.ipynb` and `Anomaly_detectuon.ipynb` for Unsupervised learning models 
 
-   
 
+## **Installation Instructions**
+
+Follow these steps to set up the project on your local machine:
+
+1. **Clone the Repository:**
+   ```sh
+   git clone https://github.com/orifelszer/CrimeData.git
+   cd CrimeData
+2. Use a virtual environment to manage your project dependencies and install the `requirements.txt` by using
+   
+   ```sh
+    pip install -r requirements.txt
 
 ## **Contributors**
 - Oriana Felszer
