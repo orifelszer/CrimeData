@@ -52,17 +52,19 @@ Run the notebooks in the following order order:
 Since our dataset contains over two millions rows, we suggest you to call from our repository the saved cleaned datasets for `X_test_supervised.zip`, `X_train_supervised.zip`, `y_test_supervised.zip` and `y_train_supervised.zip`.
 If you prefer to download yourself new versions, you can do it in the `creating_file.ipynb`
 
+   - `Creating_supervised_data.ipynb` for data spliting
+   - `Prepare_supervised_data_functions.ipynb` for data preprocessing and feature engineering
+   - `Baseline_model.ipynb`, `RandomForest.ipynb`, `DecisionTree.ipynb`, `LGBM.ipynb`, `XGB.ipynb` and `DNN.ipynb` for supervised learning models
+   - `Visualization.ipynb` for data visualization and supervised models results
 
-   - `creating_file.ipynb` for creating `X_test_supervised.zip`, `X_train_supervised.zip`, `y_test_supervised.zip` and `y_train_supervised.zip`.
-   - `Visualization.ipynb` for data visualization
-   - `Prepare_data.ipynb` for data preprocessing and feature engineering
-   - `RandomForest.ipynb`, `DecisionTree.ipynb`, `LGBM.ipynb`, `XGB.ipynb` and `DNN.ipynb` for supervised learning
-   - `Supervised_Models.ipynb` for the supervised and ansupervised results
 
+For the same reason, but for our unsupervised models, we suggest you to call `Clean_data_unsupervised_part1.zip` and `Clean_data_unsupervised_part2.zip`. 
+You can created your datasets in the `Creating_unsupervised_data.ipynb`
 
 ## *For Unsupervised Models* 
-   - `Prepare_data_unsupervised.ipynb` for data preprocessing
-   - `Clustering.ipynb` for Unsupervised learning
+   - `Creating_unsupervised_data.ipynb` for combining the datasets
+   - `Prepare_unsupervised_data_functions.ipynb` for data preprocessing and feature engineering
+   - `Clustering.ipynb` and `Anomaly_detectuon.ipynb` for Unsupervised learning models 
 
    
 
