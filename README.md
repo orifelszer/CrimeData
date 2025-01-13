@@ -61,7 +61,7 @@ The dataset provides detailed temporal and spatial data on crimes in Israel. You
 
 ### **Unsupervised Learning**
 - **Clustering Methods:**
-  - Applied K-Means and DBSCAN to identify crime patterns and hotspots.
+  - Applied K-Means, DBSCAN and HDBSCAN to identify crime patterns and hotspots.
   - Used the Elbow Method and Silhouette Score to determine the optimal number of clusters for K-Means.
   - Visualized clusters using PCA.
 - **Anomaly Detection:**
@@ -77,17 +77,17 @@ The dataset provides detailed temporal and spatial data on crimes in Israel. You
 
 ## **Usage**
 
-Run the notebooks in the following order order:
+Run the notebooks in the following order:
 
  *For Supervised Models*
 
 Since our dataset contains over two millions rows, we suggest you to call from our repository the saved cleaned datasets for `X_test_supervised.zip`, `X_train_supervised.zip`, `y_test_supervised.zip` and `y_train_supervised.zip`.
 If you prefer to download yourself new versions, you can do it in the `creating_file.ipynb`
 
-   - `Creating_supervised_data.ipynb` for data spliting
-   - `Prepare_supervised_data_functions.ipynb` for data preprocessing and feature engineering
-   - `Baseline_model.ipynb`, `RandomForest.ipynb`, `DecisionTree.ipynb`, `LGBM.ipynb`, `XGB.ipynb` and `DNN.ipynb` for supervised learning models
-   - `Visualization.ipynb` for data visualization and supervised models results
+   - `Creating_supervised_data.ipynb` for data splitting.
+   - `Prepare_supervised_data_functions.ipynb` for data preprocessing and feature engineering.
+   - `Baseline_model.ipynb`, `RandomForest.ipynb`, `DecisionTree.ipynb`, `LGBM.ipynb`, `XGB.ipynb` and `DNN.ipynb` for supervised learning models.
+   - `Visualization.ipynb` for data visualization and supervised models results.
 
 
 
@@ -96,9 +96,10 @@ If you prefer to download yourself new versions, you can do it in the `creating_
 For the same reason, but for our unsupervised models, we suggest you to call `Clean_data_unsupervised_part1.zip` and `Clean_data_unsupervised_part2.zip`. 
 You can created your datasets in the `Creating_unsupervised_data.ipynb`
 
-   - `Creating_unsupervised_data.ipynb` for combining the datasets
-   - `Prepare_unsupervised_data_functions.ipynb` for data preprocessing and feature engineering
-   - `Clustering.ipynb` and `Anomaly_detectuon.ipynb` for Unsupervised learning models 
+   - `Creating_unsupervised_data.ipynb` for combining the datasets.
+   - `Prepare_unsupervised_data_functions.ipynb` for data preprocessing and feature engineering.
+   - `Clustering.ipynb` and `Anomaly_detection.ipynb` for Unsupervised learning models.
+
 
 
 ## **Installation Instructions**
